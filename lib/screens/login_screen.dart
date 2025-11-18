@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:uts/screens/home_screen.dart';
+import 'package:uts/screens/home/home_layout.dart';
 import 'package:uts/screens/register_screen.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -76,7 +76,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   if (_formKey.currentState!.validate()) {
                     Navigator.pushAndRemoveUntil(
                       context,
-                      MaterialPageRoute(builder: (context) => HomeScreen()),
+                      MaterialPageRoute(builder: (context) => HomeLayout()),
                       (route) => false,
                     );
                   }
