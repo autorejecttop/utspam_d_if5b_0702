@@ -14,6 +14,8 @@ class _LoginScreenState extends State<LoginScreen> {
   final _usernameController = TextEditingController();
   final _passwordController = TextEditingController();
 
+  bool _isPasswordObscure = true;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -43,11 +45,24 @@ class _LoginScreenState extends State<LoginScreen> {
                 controller: _passwordController,
                 textInputAction: TextInputAction.next,
                 keyboardType: TextInputType.text,
-                obscureText: true,
+                obscureText: _isPasswordObscure,
                 decoration: InputDecoration(
                   labelText: 'Password',
                   hintText: 'Masukkan password Anda',
+                  suffixIcon: IconButton(
+                    onPressed: () {
+                      setState(() {
+                        _isPasswordObscure = !_isPasswordObscure;
+                      });
+                    },
+                    icon: Icon(
+                      _isPasswordObscure
+                          ? Icons.visibility_off
+                          : Icons.visibility,
+                    ),
+                  ),
                 ),
+
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return 'Password tidak boleh kosong!';
