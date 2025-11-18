@@ -22,7 +22,7 @@ class _LoginScreenState extends State<LoginScreen> {
       body: SafeArea(
         child: Form(
           key: _formKey,
-          autovalidateMode: AutovalidateMode.onUnfocus,
+          autovalidateMode: AutovalidateMode.onUserInteraction,
           child: Column(
             children: [
               TextFormField(
