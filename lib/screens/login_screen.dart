@@ -28,7 +28,7 @@ class _LoginScreenState extends State<LoginScreen> {
               TextFormField(
                 controller: _usernameController,
                 textInputAction: TextInputAction.next,
-                keyboardType: TextInputType.name,
+                keyboardType: TextInputType.text,
                 decoration: InputDecoration(
                   labelText: 'Username',
                   hintText: 'Masukkan username Anda',
