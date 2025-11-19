@@ -1,7 +1,8 @@
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:phone_numbers_parser/phone_numbers_parser.dart';
-import 'package:uts/screens/login_screen.dart';
+import 'package:uts/auth/login_screen.dart';
+import 'package:uts/user_model.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key});
@@ -23,6 +24,31 @@ class _RegisterScreenState extends State<RegisterScreen> {
   bool _isPasswordObscure = true;
   bool _isPasswordConfirmationObscure = true;
 
+  Future<void> register() async {
+    if (_formKey.currentState!.validate()) {
+      final result = await UserModel().create(
+        UserData(
+          name: _nameController.text,
+          email: _emailController.text,
+          phoneNumber: _phoneNumberController.text,
+          address: _addressController.text,
+          username: _usernameController.text,
+          password: _passwordController.text,
+        ),
+      );
+
+      if (result > 0) {
+        if (mounted) {
+          Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(builder: (context) => const LoginScreen()),
+            (route) => false,
+          );
+        }
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,10 +56,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
         child: SafeArea(
           child: Form(
             key: _formKey,
-            autovalidateMode: AutovalidateMode.onUserInteraction,
             child: Column(
               children: [
                 TextFormField(
+                  autovalidateMode: AutovalidateMode.onUserInteraction,
                   controller: _nameController,
                   textInputAction: TextInputAction.next,
                   keyboardType: TextInputType.name,
@@ -50,6 +76,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   },
                 ),
                 TextFormField(
+                  autovalidateMode: AutovalidateMode.onUserInteraction,
                   controller: _emailController,
                   textInputAction: TextInputAction.next,
                   keyboardType: TextInputType.emailAddress,
@@ -70,6 +97,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   },
                 ),
                 TextFormField(
+                  autovalidateMode: AutovalidateMode.onUserInteraction,
                   controller: _phoneNumberController,
                   textInputAction: TextInputAction.next,
                   keyboardType: TextInputType.phone,
@@ -99,6 +127,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   },
                 ),
                 TextFormField(
+                  autovalidateMode: AutovalidateMode.onUserInteraction,
                   controller: _addressController,
                   textInputAction: TextInputAction.next,
                   keyboardType: TextInputType.streetAddress,
@@ -115,6 +144,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   },
                 ),
                 TextFormField(
+                  autovalidateMode: AutovalidateMode.onUserInteraction,
                   controller: _usernameController,
                   textInputAction: TextInputAction.next,
                   keyboardType: TextInputType.name,
@@ -131,6 +161,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   },
                 ),
                 TextFormField(
+                  autovalidateMode: AutovalidateMode.onUserInteraction,
                   controller: _passwordController,
                   textInputAction: TextInputAction.next,
                   keyboardType: TextInputType.text,
@@ -165,6 +196,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   },
                 ),
                 TextFormField(
+                  autovalidateMode: AutovalidateMode.onUserInteraction,
                   controller: _passwordConfirmationController,
                   textInputAction: TextInputAction.next,
                   keyboardType: TextInputType.text,
@@ -200,14 +232,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   },
                 ),
                 ElevatedButton(
-                  onPressed: () {
-                    if (_formKey.currentState!.validate()) {
-                      Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(builder: (context) => LoginScreen()),
-                      );
-                    }
-                  },
+                  onPressed: register,
                   child: Text(
                     'Register',
                     style: Theme.of(context).textTheme.labelLarge,

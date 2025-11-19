@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:uts/screens/home/home_layout.dart';
-import 'package:uts/screens/register_screen.dart';
+import 'package:uts/main/main_screen.dart';
+import 'package:uts/auth/register_screen.dart';
+import 'package:uts/user_model.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -16,16 +17,34 @@ class _LoginScreenState extends State<LoginScreen> {
 
   bool _isPasswordObscure = true;
 
+  Future<void> login() async {
+    if (_formKey.currentState!.validate()) {
+      final username = _usernameController.text;
+      final password = _passwordController.text;
+
+      final userData = await UserModel().login(username, password);
+      if (mounted) {
+        Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(
+            builder: (context) => MainScreen(userData: userData),
+          ),
+          (route) => false,
+        );
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
         child: Form(
           key: _formKey,
-          autovalidateMode: AutovalidateMode.onUserInteraction,
           child: Column(
             children: [
               TextFormField(
+                autovalidateMode: AutovalidateMode.onUserInteraction,
                 controller: _usernameController,
                 textInputAction: TextInputAction.next,
                 keyboardType: TextInputType.text,
@@ -42,6 +61,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 },
               ),
               TextFormField(
+                autovalidateMode: AutovalidateMode.onUserInteraction,
                 controller: _passwordController,
                 textInputAction: TextInputAction.next,
                 keyboardType: TextInputType.text,
@@ -72,15 +92,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 },
               ),
               ElevatedButton(
-                onPressed: () {
-                  if (_formKey.currentState!.validate()) {
-                    Navigator.pushAndRemoveUntil(
-                      context,
-                      MaterialPageRoute(builder: (context) => HomeLayout()),
-                      (route) => false,
-                    );
-                  }
-                },
+                onPressed: login,
                 child: Text(
                   'Login',
                   style: Theme.of(context).textTheme.labelLarge,
