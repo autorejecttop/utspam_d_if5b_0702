@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:uts/main/history_screen.dart';
-import 'package:uts/main/home/home_screen.dart';
-import 'package:uts/main/profile/profile_screen.dart';
+import 'package:uts/main/home_screen.dart';
+import 'package:uts/main/profile_screen.dart';
 import 'package:uts/main/shop_screen.dart';
 import 'package:uts/auth/login_screen.dart';
 import 'package:uts/user_model.dart';
