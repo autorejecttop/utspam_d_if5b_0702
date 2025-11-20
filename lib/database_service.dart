@@ -50,12 +50,12 @@ class DatabaseService {
       ('Vitamin C 500 mg', 'vitamin', 'https://picsum.photos/256', 18000),
       ('Multivitamin Tablet', 'vitamin', 'https://picsum.photos/256', 32000),
       ('Vitamin B Complex', 'vitamin', 'https://picsum.photos/256', 25000),
-      ('Amoxicillin 500 mg', 'antibiotik', 'https://picsum.photos/256', 18000),
-      ('Ciprofloxacin 500 mg', 'antibiotik', 'https://picsum.photos/256', 28000),
-      ('Azithromycin 500 mg', 'antibiotik', 'https://picsum.photos/256', 50000),
-      ('Povidone Iodine 30 ml', 'antiseptik', 'https://picsum.photos/256', 12000),
-      ('Hand Sanitizer 100 ml', 'antiseptik', 'https://picsum.photos/256', 20000),
-      ('Alcohol Swab', 'antiseptik', 'https://picsum.photos/256', 3000);
+      ('Amoxicillin 500 mg', 'antibiotic', 'https://picsum.photos/256', 18000),
+      ('Ciprofloxacin 500 mg', 'antibiotic', 'https://picsum.photos/256', 28000),
+      ('Azithromycin 500 mg', 'antibiotic', 'https://picsum.photos/256', 50000),
+      ('Povidone Iodine 30 ml', 'antiseptic', 'https://picsum.photos/256', 12000),
+      ('Hand Sanitizer 100 ml', 'antiseptic', 'https://picsum.photos/256', 20000),
+      ('Alcohol Swab', 'antiseptic', 'https://picsum.photos/256', 3000);
   ''');
   }
 }
