@@ -5,7 +5,7 @@ import 'package:uts/user_model.dart';
 
 class HomeScreen extends StatefulWidget {
   final UserData userData;
-  const HomeScreen({super.key, required this.userData});
+  HomeScreen({super.key, required this.userData});
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -19,91 +19,115 @@ class _HomeScreenState extends State<HomeScreen> {
   void initState() {
     super.initState();
 
-    futureMedicines = medicineModel.findAll();
+    futureMedicines = medicineModel.findAll(limit: 4, orderBy: 'id DESC');
   }
 
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: SafeArea(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              'Halo, ${widget.userData.name}',
-              style: Theme.of(context).textTheme.headlineLarge!.copyWith(
-                color: Theme.of(context).colorScheme.primary,
+        child: Padding(
+          padding: EdgeInsets.all(8.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                'Selamat datang, ${widget.userData.name}',
+                style: Theme.of(context).textTheme.headlineMedium!.copyWith(
+                  color: Theme.of(context).colorScheme.primary,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
-            ),
 
-            const SizedBox(height: 16),
-            const Text('Tampilan Visual Daftar Obat'),
-            const SizedBox(height: 16),
+              SizedBox(height: 16),
 
-            FutureBuilder<List<MedicineData>>(
-              future: futureMedicines,
-              builder: (context, snapshot) {
-                if (snapshot.connectionState == ConnectionState.waiting) {
-                  return const Center(child: CircularProgressIndicator());
-                }
+              Text('Apa yang ingin Anda lakukan hari ini?'),
 
-                if (snapshot.hasError) {
-                  return Text('Error: ${snapshot.error}');
-                }
+              SizedBox(height: 16),
 
-                final medicines = snapshot.data ?? [];
+              Text(
+                'Obat Terbaru',
+                style: Theme.of(context).textTheme.headlineSmall!.copyWith(
+                  color: Theme.of(context).colorScheme.secondary,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
 
-                return GridView.builder(
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                  ),
-                  itemCount: medicines.length,
-                  shrinkWrap: true,
-                  physics: const NeverScrollableScrollPhysics(),
-                  itemBuilder: (context, index) {
-                    return SizedBox(
-                      child: Card(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            SizedBox(
-                              height: 120,
-                              child: Image.network(
-                                medicines[index].imageUrl,
-                                fit: BoxFit.cover,
-                                width: double.infinity,
+              SizedBox(height: 16),
+
+              FutureBuilder<List<MedicineData>>(
+                future: futureMedicines,
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return Center(child: CircularProgressIndicator());
+                  }
+
+                  if (snapshot.hasError) {
+                    return Text('Error: ${snapshot.error}');
+                  }
+
+                  final medicines = snapshot.data ?? [];
+
+                  return GridView.builder(
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2,
+                      mainAxisExtent: 240,
+                    ),
+                    itemCount: medicines.length,
+                    shrinkWrap: true,
+                    physics: NeverScrollableScrollPhysics(),
+                    itemBuilder: (context, index) {
+                      return SizedBox(
+                        child: Card(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              SizedBox(
+                                height: 120,
+                                child: Image.network(
+                                  medicines[index].imageUrl,
+                                  fit: BoxFit.cover,
+                                  width: double.infinity,
+                                ),
                               ),
-                            ),
 
-                            Padding(
-                              padding: EdgeInsetsGeometry.all(8),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    medicines[index].name,
-                                    style: Theme.of(
-                                      context,
-                                    ).textTheme.titleMedium,
-                                  ),
-                                  Text(
-                                    NumberFormat.currency(
-                                      locale: 'id',
-                                      symbol: 'Rp',
-                                    ).format(medicines[index].price),
-                                  ),
-                                ],
+                              Padding(
+                                padding: EdgeInsetsGeometry.all(8),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      medicines[index].name,
+                                      style: Theme.of(
+                                        context,
+                                      ).textTheme.titleMedium,
+                                    ),
+                                    Text(
+                                      NumberFormat.currency(
+                                        locale: 'id',
+                                        symbol: 'Rp',
+                                      ).format(medicines[index].price),
+                                    ),
+                                    Align(
+                                      alignment: Alignment.centerRight,
+                                      child: ElevatedButton(
+                                        onPressed: () {},
+                                        child: Text('Beli'),
+                                      ),
+                                    ),
+                                  ],
+                                ),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
-                      ),
-                    );
-                  },
-                );
-              },
-            ),
-          ],
+                      );
+                    },
+                  );
+                },
+              ),
+            ],
+          ),
         ),
       ),
     );

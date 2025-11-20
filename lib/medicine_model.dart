@@ -25,9 +25,12 @@ class MedicineModel {
   final String tableName = 'medicines';
   final databaseService = DatabaseService();
 
-  Future<List<MedicineData>> findAll() async {
+  Future<List<MedicineData>> findAll({
+    String? orderBy = 'id ASC',
+    int? limit,
+  }) async {
     final db = await databaseService.database;
-    final result = await db.query(tableName);
+    final result = await db.query(tableName, orderBy: orderBy, limit: limit);
 
     final data = result.map((map) => MedicineData.fromJson(map)).toList();
     return data;
