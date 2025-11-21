@@ -5,7 +5,7 @@ import 'package:uts/user_model.dart';
 
 class HomeScreen extends StatefulWidget {
   final UserData userData;
-  HomeScreen({super.key, required this.userData});
+  const HomeScreen({super.key, required this.userData});
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -46,7 +46,7 @@ class _HomeScreenState extends State<HomeScreen> {
               SizedBox(height: 16),
 
               Text(
-                'Obat Terbaru',
+                'Pilihan obat untuk Anda',
                 style: Theme.of(context).textTheme.headlineSmall!.copyWith(
                   color: Theme.of(context).colorScheme.secondary,
                   fontWeight: FontWeight.bold,
