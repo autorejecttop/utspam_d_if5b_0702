@@ -26,7 +26,7 @@ class DatabaseService {
   Future _onCreate(Database db, int version) async {
     await db.execute('''
     CREATE TABLE users (
-      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      user_id INTEGER PRIMARY KEY AUTOINCREMENT,
       name TEXT NOT NULL,
       email TEXT NOT NULL,
       phone_number TEXT NOT NULL,
@@ -37,11 +37,22 @@ class DatabaseService {
 
     await db.execute('''
     CREATE TABLE medicines (
-      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      medicine_id INTEGER PRIMARY KEY AUTOINCREMENT,
       name TEXT NOT NULL,
       category TEXT NOT NULL,
       image_url TEXT NOT NULL,
       price REAL NOT NULL
+    );''');
+
+    await db.execute('''
+    CREATE TABLE transactions (
+      transaction_id INTEGER PRIMARY KEY AUTOINCREMENT,
+      user_id INTEGER NOT NULL,
+      medicine_id INTEGER NOT NULL,
+      quantity INTEGER NOT NULL,
+      total_price REAL NOT NULL,
+      FOREIGN KEY (user_id) REFERENCES users(user_id),
+      FOREIGN KEY (medicine_id) REFERENCES medicines(medicine_id)
     );''');
 
     await db.execute('''

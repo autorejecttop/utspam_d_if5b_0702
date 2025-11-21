@@ -36,9 +36,13 @@ class UserModel {
     return data;
   }
 
-  Future<UserData> findOne(int id) async {
+  Future<UserData> findOne(int userId) async {
     final db = await databaseService.database;
-    final result = await db.query(tableName, where: 'id = ?', whereArgs: [id]);
+    final result = await db.query(
+      tableName,
+      where: 'user_id = ?',
+      whereArgs: [userId],
+    );
     return UserData.fromJson(result.first);
   }
 

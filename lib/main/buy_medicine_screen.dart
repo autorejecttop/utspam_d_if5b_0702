@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:uts/medicine_model.dart';
+import 'package:uts/transaction_model.dart';
 import 'package:uts/user_model.dart';
-
-enum PaymentMethod { direct, prescription }
 
 class BuyMedicineScreen extends StatefulWidget {
   final MedicineData medicineToBuy;
@@ -19,9 +17,11 @@ class BuyMedicineScreen extends StatefulWidget {
 }
 
 class _BuyMedicineScreenState extends State<BuyMedicineScreen> {
-  final _quantityController = TextEditingController();
+  final _formKey = GlobalKey<FormState>();
+
+  final _quantityController = TextEditingController(text: '0');
   final _noteController = TextEditingController();
-  PaymentMethod? _paymentMethod;
+  PurchaseMethod? _purchaseMethod;
   final _prescriptionNumberController = TextEditingController();
 
   @override
@@ -53,15 +53,17 @@ class _BuyMedicineScreenState extends State<BuyMedicineScreen> {
                 SizedBox(height: 16),
 
                 Form(
+                  key: _formKey,
                   child: Column(
                     children: [
                       TextFormField(
                         autovalidateMode: AutovalidateMode.onUserInteraction,
                         controller: _quantityController,
+                        onChanged: (value) => setState(() {}),
                         textInputAction: TextInputAction.next,
                         keyboardType: TextInputType.number,
                         decoration: InputDecoration(
-                          labelText: 'Jumlah Pembelian',
+                          labelText: 'Jumlah Pembelian (quantity)',
                           hintText: 'Masukkan jumlah pembelian Anda',
                         ),
                         validator: (value) {
@@ -80,40 +82,53 @@ class _BuyMedicineScreenState extends State<BuyMedicineScreen> {
                         },
                       ),
 
+                      SizedBox(height: 8),
+
                       TextFormField(
                         controller: _noteController,
                         textInputAction: TextInputAction.next,
                         keyboardType: TextInputType.text,
                         decoration: InputDecoration(
-                          labelText: 'Catatan Tambahan',
+                          labelText: 'Catatan Tambahan (opsional)',
                           hintText: 'Masukkan catatan tambahan Anda',
                         ),
                       ),
 
+                      SizedBox(height: 8),
+
                       FormField(
+                        autovalidateMode: AutovalidateMode.onUserInteraction,
+                        validator: (value) {
+                          if (value == null) {
+                            return "Metode pembelian tidak boleh kosong!";
+                          }
+
+                          return null;
+                        },
                         builder: (field) => InputDecorator(
                           decoration: InputDecoration(
-                            labelText: 'Metode Pembayaran',
+                            labelText: 'Metode Pembelian',
                             errorText: field.errorText,
                           ),
                           child: RadioGroup(
-                            groupValue: _paymentMethod,
+                            groupValue: _purchaseMethod,
                             onChanged: (value) {
                               setState(() {
                                 field.didChange(value);
                                 setState(() {
-                                  _paymentMethod = value;
+                                  _purchaseMethod = value;
+                                  _prescriptionNumberController.clear();
                                 });
                               });
                             },
                             child: Column(
                               children: [
                                 RadioListTile(
-                                  value: PaymentMethod.direct,
+                                  value: PurchaseMethod.direct,
                                   title: Text('Langsung'),
                                 ),
                                 RadioListTile(
-                                  value: PaymentMethod.prescription,
+                                  value: PurchaseMethod.prescription,
                                   title: Text('Resep Dokter'),
                                 ),
                               ],
@@ -121,13 +136,77 @@ class _BuyMedicineScreenState extends State<BuyMedicineScreen> {
                           ),
                         ),
                       ),
+
+                      SizedBox(height: 8),
+
+                      if (_purchaseMethod == PurchaseMethod.prescription)
+                        TextFormField(
+                          controller: _prescriptionNumberController,
+                          autovalidateMode: AutovalidateMode.onUserInteraction,
+                          textInputAction: TextInputAction.next,
+                          keyboardType: TextInputType.text,
+                          decoration: InputDecoration(
+                            labelText: 'Nomor Resep',
+                            hintText: 'Masukkan nomor resep Anda',
+                          ),
+                          validator: (value) {
+                            if (_purchaseMethod !=
+                                PurchaseMethod.prescription) {
+                              return null;
+                            }
+
+                            if (value == null || value.isEmpty) {
+                              return 'Nomor resep tidak boleh kosong!';
+                            }
+
+                            if (value.length < 6) {
+                              return 'Nomor resep minimal 6 karakter!';
+                            }
+
+                            final bool hasLetter = RegExp(
+                              r'[A-Za-z]',
+                            ).hasMatch(value);
+                            final bool hasNumber = RegExp(
+                              r'\d',
+                            ).hasMatch(value);
+
+                            if (!hasLetter || !hasNumber) {
+                              return 'Nomor resep harus terdiri dari angka dan huruf!';
+                            }
+
+                            return null;
+                          },
+                        ),
                     ],
                   ),
                 ),
 
                 SizedBox(height: 16),
 
-                Text('Total: ${widget.medicineToBuy.price}'),
+                Text(
+                  'Total: ${widget.medicineToBuy.price * (int.tryParse(_quantityController.text) ?? 0)}',
+                ),
+
+                SizedBox(height: 16),
+
+                SizedBox(
+                  width: double.infinity,
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Theme.of(
+                        context,
+                      ).colorScheme.primaryContainer,
+                    ),
+                    onPressed: () {
+                      if (_formKey.currentState!.validate()) {
+                        ScaffoldMessenger.of(
+                          context,
+                        ).showSnackBar(SnackBar(content: Text('Success')));
+                      }
+                    },
+                    child: Text('Beli'),
+                  ),
+                ),
               ],
             ),
           ),

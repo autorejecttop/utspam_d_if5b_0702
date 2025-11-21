@@ -26,7 +26,7 @@ class MedicineModel {
   final databaseService = DatabaseService();
 
   Future<List<MedicineData>> findAll({
-    String? orderBy = 'id ASC',
+    String? orderBy = 'medicine_id ASC',
     int? limit,
   }) async {
     final db = await databaseService.database;
