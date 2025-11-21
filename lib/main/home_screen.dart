@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:uts/main/buy_medicine_screen.dart';
 import 'package:uts/medicine_model.dart';
 import 'package:uts/user_model.dart';
 
 class HomeScreen extends StatefulWidget {
-  final UserData userData;
-  const HomeScreen({super.key, required this.userData});
+  final UserData user;
+  const HomeScreen({super.key, required this.user});
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -32,7 +33,7 @@ class _HomeScreenState extends State<HomeScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                'Selamat datang, ${widget.userData.name}',
+                'Selamat datang, ${widget.user.name}',
                 style: Theme.of(context).textTheme.headlineMedium!.copyWith(
                   color: Theme.of(context).colorScheme.primary,
                   fontWeight: FontWeight.bold,
@@ -48,7 +49,6 @@ class _HomeScreenState extends State<HomeScreen> {
               Text(
                 'Pilihan obat untuk Anda',
                 style: Theme.of(context).textTheme.headlineSmall!.copyWith(
-                  color: Theme.of(context).colorScheme.secondary,
                   fontWeight: FontWeight.bold,
                 ),
               ),
@@ -111,7 +111,19 @@ class _HomeScreenState extends State<HomeScreen> {
                                     Align(
                                       alignment: Alignment.centerRight,
                                       child: ElevatedButton(
-                                        onPressed: () {},
+                                        onPressed: () {
+                                          Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                              builder: (context) =>
+                                                  BuyMedicineScreen(
+                                                    medicineToBuy:
+                                                        medicines[index],
+                                                    user: widget.user,
+                                                  ),
+                                            ),
+                                          );
+                                        },
                                         child: Text('Beli'),
                                       ),
                                     ),

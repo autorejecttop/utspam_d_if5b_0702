@@ -47,11 +47,11 @@ class _MainScreenState extends State<MainScreen> {
         ],
       ),
       body: [
-        HomeScreen(userData: widget.userData),
-        ShopScreen(),
+        HomeScreen(user: widget.userData),
+        ShopScreen(user: widget.userData),
         HistoryScreen(),
-        ProfileScreen(userData: widget.userData),
-        Placeholder(),
+        ProfileScreen(user: widget.userData),
+        SizedBox(),
       ][_currentScreenIndex],
     );
   }

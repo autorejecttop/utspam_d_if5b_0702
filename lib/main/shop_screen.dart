@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:uts/main/buy_medicine_screen.dart';
 import 'package:uts/medicine_model.dart';
+import 'package:uts/user_model.dart';
 
 class ShopScreen extends StatefulWidget {
-  const ShopScreen({super.key});
+  final UserData user;
+  const ShopScreen({super.key, required this.user});
 
   @override
   State<ShopScreen> createState() => _ShopScreenState();
@@ -93,7 +96,19 @@ class _ShopScreenState extends State<ShopScreen> {
                                   Align(
                                     alignment: Alignment.centerRight,
                                     child: ElevatedButton(
-                                      onPressed: () {},
+                                      onPressed: () {
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) =>
+                                                BuyMedicineScreen(
+                                                  user: widget.user,
+                                                  medicineToBuy:
+                                                      medicines[index],
+                                                ),
+                                          ),
+                                        );
+                                      },
                                       child: Text('Beli'),
                                     ),
                                   ),
