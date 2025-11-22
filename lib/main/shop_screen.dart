@@ -20,7 +20,7 @@ class _ShopScreenState extends State<ShopScreen> {
   void initState() {
     super.initState();
 
-    medicines = medicineModel.findAll(orderBy: 'id DESC');
+    medicines = medicineModel.findAll(orderBy: 'medicine_id DESC');
   }
 
   @override

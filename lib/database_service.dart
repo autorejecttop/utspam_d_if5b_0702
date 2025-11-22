@@ -51,6 +51,10 @@ class DatabaseService {
       medicine_id INTEGER NOT NULL,
       quantity INTEGER NOT NULL,
       total_price REAL NOT NULL,
+      purchase_method TEXT CHECK (purchase_method IN ('direct', 'prescription')) NOT NULL,
+      note TEXT,
+      prescription_number TEXT,
+      created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
       FOREIGN KEY (user_id) REFERENCES users(user_id),
       FOREIGN KEY (medicine_id) REFERENCES medicines(medicine_id)
     );''');

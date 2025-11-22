@@ -8,6 +8,7 @@ part of 'medicine_model.dart';
 
 _MedicineData _$MedicineDataFromJson(Map<String, dynamic> json) =>
     _MedicineData(
+      medicineId: (json['medicine_id'] as num?)?.toInt(),
       name: json['name'] as String,
       category: $enumDecode(_$MedicineCategoryEnumMap, json['category']),
       imageUrl: json['image_url'] as String,

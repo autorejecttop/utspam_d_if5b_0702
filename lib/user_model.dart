@@ -11,6 +11,7 @@ part 'user_model.g.dart';
 abstract class UserData with _$UserData {
   @JsonSerializable(fieldRename: FieldRename.snake)
   const factory UserData({
+    @JsonKey(includeFromJson: true, includeToJson: false) int? userId,
     required String name,
     required String email,
     required String phoneNumber,

@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$TransactionData implements DiagnosticableTreeMixin {
 
- int get transactionId; int get medicineId; int get userId; int get quantity; num get totalAmount; PurchaseMethod get paymentMethod; String? get note; String? get prescriptionNumber; DateTime get createdAt;
+@JsonKey(includeFromJson: true, includeToJson: false) int? get transactionId; int get userId; int get medicineId; int get quantity; num get totalPrice; PurchaseMethod get purchaseMethod; String? get note; String? get prescriptionNumber;@JsonKey(includeFromJson: true, includeToJson: false) DateTime? get createdAt;
 /// Create a copy of TransactionData
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -29,21 +29,21 @@ $TransactionDataCopyWith<TransactionData> get copyWith => _$TransactionDataCopyW
 void debugFillProperties(DiagnosticPropertiesBuilder properties) {
   properties
     ..add(DiagnosticsProperty('type', 'TransactionData'))
-    ..add(DiagnosticsProperty('transactionId', transactionId))..add(DiagnosticsProperty('medicineId', medicineId))..add(DiagnosticsProperty('userId', userId))..add(DiagnosticsProperty('quantity', quantity))..add(DiagnosticsProperty('totalAmount', totalAmount))..add(DiagnosticsProperty('paymentMethod', paymentMethod))..add(DiagnosticsProperty('note', note))..add(DiagnosticsProperty('prescriptionNumber', prescriptionNumber))..add(DiagnosticsProperty('createdAt', createdAt));
+    ..add(DiagnosticsProperty('transactionId', transactionId))..add(DiagnosticsProperty('userId', userId))..add(DiagnosticsProperty('medicineId', medicineId))..add(DiagnosticsProperty('quantity', quantity))..add(DiagnosticsProperty('totalPrice', totalPrice))..add(DiagnosticsProperty('purchaseMethod', purchaseMethod))..add(DiagnosticsProperty('note', note))..add(DiagnosticsProperty('prescriptionNumber', prescriptionNumber))..add(DiagnosticsProperty('createdAt', createdAt));
 }
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is TransactionData&&(identical(other.transactionId, transactionId) || other.transactionId == transactionId)&&(identical(other.medicineId, medicineId) || other.medicineId == medicineId)&&(identical(other.userId, userId) || other.userId == userId)&&(identical(other.quantity, quantity) || other.quantity == quantity)&&(identical(other.totalAmount, totalAmount) || other.totalAmount == totalAmount)&&(identical(other.paymentMethod, paymentMethod) || other.paymentMethod == paymentMethod)&&(identical(other.note, note) || other.note == note)&&(identical(other.prescriptionNumber, prescriptionNumber) || other.prescriptionNumber == prescriptionNumber)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is TransactionData&&(identical(other.transactionId, transactionId) || other.transactionId == transactionId)&&(identical(other.userId, userId) || other.userId == userId)&&(identical(other.medicineId, medicineId) || other.medicineId == medicineId)&&(identical(other.quantity, quantity) || other.quantity == quantity)&&(identical(other.totalPrice, totalPrice) || other.totalPrice == totalPrice)&&(identical(other.purchaseMethod, purchaseMethod) || other.purchaseMethod == purchaseMethod)&&(identical(other.note, note) || other.note == note)&&(identical(other.prescriptionNumber, prescriptionNumber) || other.prescriptionNumber == prescriptionNumber)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,transactionId,medicineId,userId,quantity,totalAmount,paymentMethod,note,prescriptionNumber,createdAt);
+int get hashCode => Object.hash(runtimeType,transactionId,userId,medicineId,quantity,totalPrice,purchaseMethod,note,prescriptionNumber,createdAt);
 
 @override
 String toString({ DiagnosticLevel minLevel = DiagnosticLevel.info }) {
-  return 'TransactionData(transactionId: $transactionId, medicineId: $medicineId, userId: $userId, quantity: $quantity, totalAmount: $totalAmount, paymentMethod: $paymentMethod, note: $note, prescriptionNumber: $prescriptionNumber, createdAt: $createdAt)';
+  return 'TransactionData(transactionId: $transactionId, userId: $userId, medicineId: $medicineId, quantity: $quantity, totalPrice: $totalPrice, purchaseMethod: $purchaseMethod, note: $note, prescriptionNumber: $prescriptionNumber, createdAt: $createdAt)';
 }
 
 
@@ -54,7 +54,7 @@ abstract mixin class $TransactionDataCopyWith<$Res>  {
   factory $TransactionDataCopyWith(TransactionData value, $Res Function(TransactionData) _then) = _$TransactionDataCopyWithImpl;
 @useResult
 $Res call({
- int transactionId, int medicineId, int userId, int quantity, num totalAmount, PurchaseMethod paymentMethod, String? note, String? prescriptionNumber, DateTime createdAt
+@JsonKey(includeFromJson: true, includeToJson: false) int? transactionId, int userId, int medicineId, int quantity, num totalPrice, PurchaseMethod purchaseMethod, String? note, String? prescriptionNumber,@JsonKey(includeFromJson: true, includeToJson: false) DateTime? createdAt
 });
 
 
@@ -71,18 +71,18 @@ class _$TransactionDataCopyWithImpl<$Res>
 
 /// Create a copy of TransactionData
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? transactionId = null,Object? medicineId = null,Object? userId = null,Object? quantity = null,Object? totalAmount = null,Object? paymentMethod = null,Object? note = freezed,Object? prescriptionNumber = freezed,Object? createdAt = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? transactionId = freezed,Object? userId = null,Object? medicineId = null,Object? quantity = null,Object? totalPrice = null,Object? purchaseMethod = null,Object? note = freezed,Object? prescriptionNumber = freezed,Object? createdAt = freezed,}) {
   return _then(_self.copyWith(
-transactionId: null == transactionId ? _self.transactionId : transactionId // ignore: cast_nullable_to_non_nullable
+transactionId: freezed == transactionId ? _self.transactionId : transactionId // ignore: cast_nullable_to_non_nullable
+as int?,userId: null == userId ? _self.userId : userId // ignore: cast_nullable_to_non_nullable
 as int,medicineId: null == medicineId ? _self.medicineId : medicineId // ignore: cast_nullable_to_non_nullable
-as int,userId: null == userId ? _self.userId : userId // ignore: cast_nullable_to_non_nullable
 as int,quantity: null == quantity ? _self.quantity : quantity // ignore: cast_nullable_to_non_nullable
-as int,totalAmount: null == totalAmount ? _self.totalAmount : totalAmount // ignore: cast_nullable_to_non_nullable
-as num,paymentMethod: null == paymentMethod ? _self.paymentMethod : paymentMethod // ignore: cast_nullable_to_non_nullable
+as int,totalPrice: null == totalPrice ? _self.totalPrice : totalPrice // ignore: cast_nullable_to_non_nullable
+as num,purchaseMethod: null == purchaseMethod ? _self.purchaseMethod : purchaseMethod // ignore: cast_nullable_to_non_nullable
 as PurchaseMethod,note: freezed == note ? _self.note : note // ignore: cast_nullable_to_non_nullable
 as String?,prescriptionNumber: freezed == prescriptionNumber ? _self.prescriptionNumber : prescriptionNumber // ignore: cast_nullable_to_non_nullable
-as String?,createdAt: null == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
-as DateTime,
+as String?,createdAt: freezed == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
+as DateTime?,
   ));
 }
 
@@ -167,10 +167,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int transactionId,  int medicineId,  int userId,  int quantity,  num totalAmount,  PurchaseMethod paymentMethod,  String? note,  String? prescriptionNumber,  DateTime createdAt)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function(@JsonKey(includeFromJson: true, includeToJson: false)  int? transactionId,  int userId,  int medicineId,  int quantity,  num totalPrice,  PurchaseMethod purchaseMethod,  String? note,  String? prescriptionNumber, @JsonKey(includeFromJson: true, includeToJson: false)  DateTime? createdAt)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _TransactionData() when $default != null:
-return $default(_that.transactionId,_that.medicineId,_that.userId,_that.quantity,_that.totalAmount,_that.paymentMethod,_that.note,_that.prescriptionNumber,_that.createdAt);case _:
+return $default(_that.transactionId,_that.userId,_that.medicineId,_that.quantity,_that.totalPrice,_that.purchaseMethod,_that.note,_that.prescriptionNumber,_that.createdAt);case _:
   return orElse();
 
 }
@@ -188,10 +188,10 @@ return $default(_that.transactionId,_that.medicineId,_that.userId,_that.quantity
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int transactionId,  int medicineId,  int userId,  int quantity,  num totalAmount,  PurchaseMethod paymentMethod,  String? note,  String? prescriptionNumber,  DateTime createdAt)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function(@JsonKey(includeFromJson: true, includeToJson: false)  int? transactionId,  int userId,  int medicineId,  int quantity,  num totalPrice,  PurchaseMethod purchaseMethod,  String? note,  String? prescriptionNumber, @JsonKey(includeFromJson: true, includeToJson: false)  DateTime? createdAt)  $default,) {final _that = this;
 switch (_that) {
 case _TransactionData():
-return $default(_that.transactionId,_that.medicineId,_that.userId,_that.quantity,_that.totalAmount,_that.paymentMethod,_that.note,_that.prescriptionNumber,_that.createdAt);case _:
+return $default(_that.transactionId,_that.userId,_that.medicineId,_that.quantity,_that.totalPrice,_that.purchaseMethod,_that.note,_that.prescriptionNumber,_that.createdAt);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -208,10 +208,10 @@ return $default(_that.transactionId,_that.medicineId,_that.userId,_that.quantity
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int transactionId,  int medicineId,  int userId,  int quantity,  num totalAmount,  PurchaseMethod paymentMethod,  String? note,  String? prescriptionNumber,  DateTime createdAt)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function(@JsonKey(includeFromJson: true, includeToJson: false)  int? transactionId,  int userId,  int medicineId,  int quantity,  num totalPrice,  PurchaseMethod purchaseMethod,  String? note,  String? prescriptionNumber, @JsonKey(includeFromJson: true, includeToJson: false)  DateTime? createdAt)?  $default,) {final _that = this;
 switch (_that) {
 case _TransactionData() when $default != null:
-return $default(_that.transactionId,_that.medicineId,_that.userId,_that.quantity,_that.totalAmount,_that.paymentMethod,_that.note,_that.prescriptionNumber,_that.createdAt);case _:
+return $default(_that.transactionId,_that.userId,_that.medicineId,_that.quantity,_that.totalPrice,_that.purchaseMethod,_that.note,_that.prescriptionNumber,_that.createdAt);case _:
   return null;
 
 }
@@ -223,18 +223,18 @@ return $default(_that.transactionId,_that.medicineId,_that.userId,_that.quantity
 
 @JsonSerializable(fieldRename: FieldRename.snake)
 class _TransactionData with DiagnosticableTreeMixin implements TransactionData {
-  const _TransactionData({required this.transactionId, required this.medicineId, required this.userId, required this.quantity, required this.totalAmount, required this.paymentMethod, this.note, this.prescriptionNumber, required this.createdAt});
+  const _TransactionData({@JsonKey(includeFromJson: true, includeToJson: false) this.transactionId, required this.userId, required this.medicineId, required this.quantity, required this.totalPrice, required this.purchaseMethod, this.note, this.prescriptionNumber, @JsonKey(includeFromJson: true, includeToJson: false) this.createdAt});
   factory _TransactionData.fromJson(Map<String, dynamic> json) => _$TransactionDataFromJson(json);
 
-@override final  int transactionId;
-@override final  int medicineId;
+@override@JsonKey(includeFromJson: true, includeToJson: false) final  int? transactionId;
 @override final  int userId;
+@override final  int medicineId;
 @override final  int quantity;
-@override final  num totalAmount;
-@override final  PurchaseMethod paymentMethod;
+@override final  num totalPrice;
+@override final  PurchaseMethod purchaseMethod;
 @override final  String? note;
 @override final  String? prescriptionNumber;
-@override final  DateTime createdAt;
+@override@JsonKey(includeFromJson: true, includeToJson: false) final  DateTime? createdAt;
 
 /// Create a copy of TransactionData
 /// with the given fields replaced by the non-null parameter values.
@@ -250,21 +250,21 @@ Map<String, dynamic> toJson() {
 void debugFillProperties(DiagnosticPropertiesBuilder properties) {
   properties
     ..add(DiagnosticsProperty('type', 'TransactionData'))
-    ..add(DiagnosticsProperty('transactionId', transactionId))..add(DiagnosticsProperty('medicineId', medicineId))..add(DiagnosticsProperty('userId', userId))..add(DiagnosticsProperty('quantity', quantity))..add(DiagnosticsProperty('totalAmount', totalAmount))..add(DiagnosticsProperty('paymentMethod', paymentMethod))..add(DiagnosticsProperty('note', note))..add(DiagnosticsProperty('prescriptionNumber', prescriptionNumber))..add(DiagnosticsProperty('createdAt', createdAt));
+    ..add(DiagnosticsProperty('transactionId', transactionId))..add(DiagnosticsProperty('userId', userId))..add(DiagnosticsProperty('medicineId', medicineId))..add(DiagnosticsProperty('quantity', quantity))..add(DiagnosticsProperty('totalPrice', totalPrice))..add(DiagnosticsProperty('purchaseMethod', purchaseMethod))..add(DiagnosticsProperty('note', note))..add(DiagnosticsProperty('prescriptionNumber', prescriptionNumber))..add(DiagnosticsProperty('createdAt', createdAt));
 }
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _TransactionData&&(identical(other.transactionId, transactionId) || other.transactionId == transactionId)&&(identical(other.medicineId, medicineId) || other.medicineId == medicineId)&&(identical(other.userId, userId) || other.userId == userId)&&(identical(other.quantity, quantity) || other.quantity == quantity)&&(identical(other.totalAmount, totalAmount) || other.totalAmount == totalAmount)&&(identical(other.paymentMethod, paymentMethod) || other.paymentMethod == paymentMethod)&&(identical(other.note, note) || other.note == note)&&(identical(other.prescriptionNumber, prescriptionNumber) || other.prescriptionNumber == prescriptionNumber)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _TransactionData&&(identical(other.transactionId, transactionId) || other.transactionId == transactionId)&&(identical(other.userId, userId) || other.userId == userId)&&(identical(other.medicineId, medicineId) || other.medicineId == medicineId)&&(identical(other.quantity, quantity) || other.quantity == quantity)&&(identical(other.totalPrice, totalPrice) || other.totalPrice == totalPrice)&&(identical(other.purchaseMethod, purchaseMethod) || other.purchaseMethod == purchaseMethod)&&(identical(other.note, note) || other.note == note)&&(identical(other.prescriptionNumber, prescriptionNumber) || other.prescriptionNumber == prescriptionNumber)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,transactionId,medicineId,userId,quantity,totalAmount,paymentMethod,note,prescriptionNumber,createdAt);
+int get hashCode => Object.hash(runtimeType,transactionId,userId,medicineId,quantity,totalPrice,purchaseMethod,note,prescriptionNumber,createdAt);
 
 @override
 String toString({ DiagnosticLevel minLevel = DiagnosticLevel.info }) {
-  return 'TransactionData(transactionId: $transactionId, medicineId: $medicineId, userId: $userId, quantity: $quantity, totalAmount: $totalAmount, paymentMethod: $paymentMethod, note: $note, prescriptionNumber: $prescriptionNumber, createdAt: $createdAt)';
+  return 'TransactionData(transactionId: $transactionId, userId: $userId, medicineId: $medicineId, quantity: $quantity, totalPrice: $totalPrice, purchaseMethod: $purchaseMethod, note: $note, prescriptionNumber: $prescriptionNumber, createdAt: $createdAt)';
 }
 
 
@@ -275,7 +275,7 @@ abstract mixin class _$TransactionDataCopyWith<$Res> implements $TransactionData
   factory _$TransactionDataCopyWith(_TransactionData value, $Res Function(_TransactionData) _then) = __$TransactionDataCopyWithImpl;
 @override @useResult
 $Res call({
- int transactionId, int medicineId, int userId, int quantity, num totalAmount, PurchaseMethod paymentMethod, String? note, String? prescriptionNumber, DateTime createdAt
+@JsonKey(includeFromJson: true, includeToJson: false) int? transactionId, int userId, int medicineId, int quantity, num totalPrice, PurchaseMethod purchaseMethod, String? note, String? prescriptionNumber,@JsonKey(includeFromJson: true, includeToJson: false) DateTime? createdAt
 });
 
 
@@ -292,18 +292,18 @@ class __$TransactionDataCopyWithImpl<$Res>
 
 /// Create a copy of TransactionData
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? transactionId = null,Object? medicineId = null,Object? userId = null,Object? quantity = null,Object? totalAmount = null,Object? paymentMethod = null,Object? note = freezed,Object? prescriptionNumber = freezed,Object? createdAt = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? transactionId = freezed,Object? userId = null,Object? medicineId = null,Object? quantity = null,Object? totalPrice = null,Object? purchaseMethod = null,Object? note = freezed,Object? prescriptionNumber = freezed,Object? createdAt = freezed,}) {
   return _then(_TransactionData(
-transactionId: null == transactionId ? _self.transactionId : transactionId // ignore: cast_nullable_to_non_nullable
+transactionId: freezed == transactionId ? _self.transactionId : transactionId // ignore: cast_nullable_to_non_nullable
+as int?,userId: null == userId ? _self.userId : userId // ignore: cast_nullable_to_non_nullable
 as int,medicineId: null == medicineId ? _self.medicineId : medicineId // ignore: cast_nullable_to_non_nullable
-as int,userId: null == userId ? _self.userId : userId // ignore: cast_nullable_to_non_nullable
 as int,quantity: null == quantity ? _self.quantity : quantity // ignore: cast_nullable_to_non_nullable
-as int,totalAmount: null == totalAmount ? _self.totalAmount : totalAmount // ignore: cast_nullable_to_non_nullable
-as num,paymentMethod: null == paymentMethod ? _self.paymentMethod : paymentMethod // ignore: cast_nullable_to_non_nullable
+as int,totalPrice: null == totalPrice ? _self.totalPrice : totalPrice // ignore: cast_nullable_to_non_nullable
+as num,purchaseMethod: null == purchaseMethod ? _self.purchaseMethod : purchaseMethod // ignore: cast_nullable_to_non_nullable
 as PurchaseMethod,note: freezed == note ? _self.note : note // ignore: cast_nullable_to_non_nullable
 as String?,prescriptionNumber: freezed == prescriptionNumber ? _self.prescriptionNumber : prescriptionNumber // ignore: cast_nullable_to_non_nullable
-as String?,createdAt: null == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
-as DateTime,
+as String?,createdAt: freezed == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
+as DateTime?,
   ));
 }
 

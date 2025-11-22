@@ -11,6 +11,7 @@ enum MedicineCategory { vitamin, antibiotic, antiseptic }
 abstract class MedicineData with _$MedicineData {
   @JsonSerializable(fieldRename: FieldRename.snake)
   const factory MedicineData({
+    @JsonKey(includeFromJson: true, includeToJson: false) int? medicineId,
     required String name,
     required MedicineCategory category,
     required String imageUrl,

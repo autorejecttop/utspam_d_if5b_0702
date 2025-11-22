@@ -20,7 +20,10 @@ class _HomeScreenState extends State<HomeScreen> {
   void initState() {
     super.initState();
 
-    futureMedicines = medicineModel.findAll(limit: 4, orderBy: 'id DESC');
+    futureMedicines = medicineModel.findAll(
+      limit: 4,
+      orderBy: 'medicine_id DESC',
+    );
   }
 
   @override

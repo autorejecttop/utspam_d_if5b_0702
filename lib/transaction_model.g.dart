@@ -8,31 +8,31 @@ part of 'transaction_model.dart';
 
 _TransactionData _$TransactionDataFromJson(Map<String, dynamic> json) =>
     _TransactionData(
-      transactionId: (json['transaction_id'] as num).toInt(),
-      medicineId: (json['medicine_id'] as num).toInt(),
+      transactionId: (json['transaction_id'] as num?)?.toInt(),
       userId: (json['user_id'] as num).toInt(),
+      medicineId: (json['medicine_id'] as num).toInt(),
       quantity: (json['quantity'] as num).toInt(),
-      totalAmount: json['total_amount'] as num,
-      paymentMethod: $enumDecode(
+      totalPrice: json['total_price'] as num,
+      purchaseMethod: $enumDecode(
         _$PurchaseMethodEnumMap,
-        json['payment_method'],
+        json['purchase_method'],
       ),
       note: json['note'] as String?,
       prescriptionNumber: json['prescription_number'] as String?,
-      createdAt: DateTime.parse(json['created_at'] as String),
+      createdAt: json['created_at'] == null
+          ? null
+          : DateTime.parse(json['created_at'] as String),
     );
 
 Map<String, dynamic> _$TransactionDataToJson(_TransactionData instance) =>
     <String, dynamic>{
-      'transaction_id': instance.transactionId,
-      'medicine_id': instance.medicineId,
       'user_id': instance.userId,
+      'medicine_id': instance.medicineId,
       'quantity': instance.quantity,
-      'total_amount': instance.totalAmount,
-      'payment_method': _$PurchaseMethodEnumMap[instance.paymentMethod]!,
+      'total_price': instance.totalPrice,
+      'purchase_method': _$PurchaseMethodEnumMap[instance.purchaseMethod]!,
       'note': instance.note,
       'prescription_number': instance.prescriptionNumber,
-      'created_at': instance.createdAt.toIso8601String(),
     };
 
 const _$PurchaseMethodEnumMap = {

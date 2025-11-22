@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$MedicineData implements DiagnosticableTreeMixin {
 
- String get name; MedicineCategory get category; String get imageUrl; num get price;
+@JsonKey(includeFromJson: true, includeToJson: false) int? get medicineId; String get name; MedicineCategory get category; String get imageUrl; num get price;
 /// Create a copy of MedicineData
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -29,21 +29,21 @@ $MedicineDataCopyWith<MedicineData> get copyWith => _$MedicineDataCopyWithImpl<M
 void debugFillProperties(DiagnosticPropertiesBuilder properties) {
   properties
     ..add(DiagnosticsProperty('type', 'MedicineData'))
-    ..add(DiagnosticsProperty('name', name))..add(DiagnosticsProperty('category', category))..add(DiagnosticsProperty('imageUrl', imageUrl))..add(DiagnosticsProperty('price', price));
+    ..add(DiagnosticsProperty('medicineId', medicineId))..add(DiagnosticsProperty('name', name))..add(DiagnosticsProperty('category', category))..add(DiagnosticsProperty('imageUrl', imageUrl))..add(DiagnosticsProperty('price', price));
 }
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is MedicineData&&(identical(other.name, name) || other.name == name)&&(identical(other.category, category) || other.category == category)&&(identical(other.imageUrl, imageUrl) || other.imageUrl == imageUrl)&&(identical(other.price, price) || other.price == price));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is MedicineData&&(identical(other.medicineId, medicineId) || other.medicineId == medicineId)&&(identical(other.name, name) || other.name == name)&&(identical(other.category, category) || other.category == category)&&(identical(other.imageUrl, imageUrl) || other.imageUrl == imageUrl)&&(identical(other.price, price) || other.price == price));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,name,category,imageUrl,price);
+int get hashCode => Object.hash(runtimeType,medicineId,name,category,imageUrl,price);
 
 @override
 String toString({ DiagnosticLevel minLevel = DiagnosticLevel.info }) {
-  return 'MedicineData(name: $name, category: $category, imageUrl: $imageUrl, price: $price)';
+  return 'MedicineData(medicineId: $medicineId, name: $name, category: $category, imageUrl: $imageUrl, price: $price)';
 }
 
 
@@ -54,7 +54,7 @@ abstract mixin class $MedicineDataCopyWith<$Res>  {
   factory $MedicineDataCopyWith(MedicineData value, $Res Function(MedicineData) _then) = _$MedicineDataCopyWithImpl;
 @useResult
 $Res call({
- String name, MedicineCategory category, String imageUrl, num price
+@JsonKey(includeFromJson: true, includeToJson: false) int? medicineId, String name, MedicineCategory category, String imageUrl, num price
 });
 
 
@@ -71,9 +71,10 @@ class _$MedicineDataCopyWithImpl<$Res>
 
 /// Create a copy of MedicineData
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? name = null,Object? category = null,Object? imageUrl = null,Object? price = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? medicineId = freezed,Object? name = null,Object? category = null,Object? imageUrl = null,Object? price = null,}) {
   return _then(_self.copyWith(
-name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
+medicineId: freezed == medicineId ? _self.medicineId : medicineId // ignore: cast_nullable_to_non_nullable
+as int?,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as String,category: null == category ? _self.category : category // ignore: cast_nullable_to_non_nullable
 as MedicineCategory,imageUrl: null == imageUrl ? _self.imageUrl : imageUrl // ignore: cast_nullable_to_non_nullable
 as String,price: null == price ? _self.price : price // ignore: cast_nullable_to_non_nullable
@@ -162,10 +163,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String name,  MedicineCategory category,  String imageUrl,  num price)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function(@JsonKey(includeFromJson: true, includeToJson: false)  int? medicineId,  String name,  MedicineCategory category,  String imageUrl,  num price)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _MedicineData() when $default != null:
-return $default(_that.name,_that.category,_that.imageUrl,_that.price);case _:
+return $default(_that.medicineId,_that.name,_that.category,_that.imageUrl,_that.price);case _:
   return orElse();
 
 }
@@ -183,10 +184,10 @@ return $default(_that.name,_that.category,_that.imageUrl,_that.price);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String name,  MedicineCategory category,  String imageUrl,  num price)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function(@JsonKey(includeFromJson: true, includeToJson: false)  int? medicineId,  String name,  MedicineCategory category,  String imageUrl,  num price)  $default,) {final _that = this;
 switch (_that) {
 case _MedicineData():
-return $default(_that.name,_that.category,_that.imageUrl,_that.price);case _:
+return $default(_that.medicineId,_that.name,_that.category,_that.imageUrl,_that.price);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -203,10 +204,10 @@ return $default(_that.name,_that.category,_that.imageUrl,_that.price);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String name,  MedicineCategory category,  String imageUrl,  num price)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function(@JsonKey(includeFromJson: true, includeToJson: false)  int? medicineId,  String name,  MedicineCategory category,  String imageUrl,  num price)?  $default,) {final _that = this;
 switch (_that) {
 case _MedicineData() when $default != null:
-return $default(_that.name,_that.category,_that.imageUrl,_that.price);case _:
+return $default(_that.medicineId,_that.name,_that.category,_that.imageUrl,_that.price);case _:
   return null;
 
 }
@@ -218,9 +219,10 @@ return $default(_that.name,_that.category,_that.imageUrl,_that.price);case _:
 
 @JsonSerializable(fieldRename: FieldRename.snake)
 class _MedicineData with DiagnosticableTreeMixin implements MedicineData {
-  const _MedicineData({required this.name, required this.category, required this.imageUrl, required this.price});
+  const _MedicineData({@JsonKey(includeFromJson: true, includeToJson: false) this.medicineId, required this.name, required this.category, required this.imageUrl, required this.price});
   factory _MedicineData.fromJson(Map<String, dynamic> json) => _$MedicineDataFromJson(json);
 
+@override@JsonKey(includeFromJson: true, includeToJson: false) final  int? medicineId;
 @override final  String name;
 @override final  MedicineCategory category;
 @override final  String imageUrl;
@@ -240,21 +242,21 @@ Map<String, dynamic> toJson() {
 void debugFillProperties(DiagnosticPropertiesBuilder properties) {
   properties
     ..add(DiagnosticsProperty('type', 'MedicineData'))
-    ..add(DiagnosticsProperty('name', name))..add(DiagnosticsProperty('category', category))..add(DiagnosticsProperty('imageUrl', imageUrl))..add(DiagnosticsProperty('price', price));
+    ..add(DiagnosticsProperty('medicineId', medicineId))..add(DiagnosticsProperty('name', name))..add(DiagnosticsProperty('category', category))..add(DiagnosticsProperty('imageUrl', imageUrl))..add(DiagnosticsProperty('price', price));
 }
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _MedicineData&&(identical(other.name, name) || other.name == name)&&(identical(other.category, category) || other.category == category)&&(identical(other.imageUrl, imageUrl) || other.imageUrl == imageUrl)&&(identical(other.price, price) || other.price == price));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _MedicineData&&(identical(other.medicineId, medicineId) || other.medicineId == medicineId)&&(identical(other.name, name) || other.name == name)&&(identical(other.category, category) || other.category == category)&&(identical(other.imageUrl, imageUrl) || other.imageUrl == imageUrl)&&(identical(other.price, price) || other.price == price));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,name,category,imageUrl,price);
+int get hashCode => Object.hash(runtimeType,medicineId,name,category,imageUrl,price);
 
 @override
 String toString({ DiagnosticLevel minLevel = DiagnosticLevel.info }) {
-  return 'MedicineData(name: $name, category: $category, imageUrl: $imageUrl, price: $price)';
+  return 'MedicineData(medicineId: $medicineId, name: $name, category: $category, imageUrl: $imageUrl, price: $price)';
 }
 
 
@@ -265,7 +267,7 @@ abstract mixin class _$MedicineDataCopyWith<$Res> implements $MedicineDataCopyWi
   factory _$MedicineDataCopyWith(_MedicineData value, $Res Function(_MedicineData) _then) = __$MedicineDataCopyWithImpl;
 @override @useResult
 $Res call({
- String name, MedicineCategory category, String imageUrl, num price
+@JsonKey(includeFromJson: true, includeToJson: false) int? medicineId, String name, MedicineCategory category, String imageUrl, num price
 });
 
 
@@ -282,9 +284,10 @@ class __$MedicineDataCopyWithImpl<$Res>
 
 /// Create a copy of MedicineData
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? name = null,Object? category = null,Object? imageUrl = null,Object? price = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? medicineId = freezed,Object? name = null,Object? category = null,Object? imageUrl = null,Object? price = null,}) {
   return _then(_MedicineData(
-name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
+medicineId: freezed == medicineId ? _self.medicineId : medicineId // ignore: cast_nullable_to_non_nullable
+as int?,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as String,category: null == category ? _self.category : category // ignore: cast_nullable_to_non_nullable
 as MedicineCategory,imageUrl: null == imageUrl ? _self.imageUrl : imageUrl // ignore: cast_nullable_to_non_nullable
 as String,price: null == price ? _self.price : price // ignore: cast_nullable_to_non_nullable

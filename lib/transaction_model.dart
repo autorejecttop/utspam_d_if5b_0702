@@ -11,15 +11,15 @@ enum PurchaseMethod { direct, prescription }
 abstract class TransactionData with _$TransactionData {
   @JsonSerializable(fieldRename: FieldRename.snake)
   const factory TransactionData({
-    required int transactionId,
-    required int medicineId,
+    @JsonKey(includeFromJson: true, includeToJson: false) int? transactionId,
     required int userId,
+    required int medicineId,
     required int quantity,
-    required num totalAmount,
-    required PurchaseMethod paymentMethod,
+    required num totalPrice,
+    required PurchaseMethod purchaseMethod,
     String? note,
     String? prescriptionNumber,
-    required DateTime createdAt,
+    @JsonKey(includeFromJson: true, includeToJson: false) DateTime? createdAt,
   }) = _TransactionData;
 
   factory TransactionData.fromJson(Map<String, dynamic> json) =>
@@ -32,6 +32,15 @@ class TransactionModel {
 
   Future<int> create(TransactionData transactionData) async {
     final db = await databaseService.database;
-    return await db.insert('transactions', transactionData.toJson());
+    return await db.insert(tableName, transactionData.toJson());
+  }
+
+  Future<List<TransactionData>> findAll() async {
+    final db = await databaseService.database;
+    final result = await db.query(tableName);
+
+    final data = result.map((map) => TransactionData.fromJson(map)).toList();
+
+    return data;
   }
 }

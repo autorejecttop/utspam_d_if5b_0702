@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$UserData implements DiagnosticableTreeMixin {
 
- String get name; String get email; String get phoneNumber; String get address; String get username;@JsonKey(includeFromJson: false, includeToJson: false) String? get password;@JsonKey(includeFromJson: true, includeToJson: true) String? get passwordHash;
+@JsonKey(includeFromJson: true, includeToJson: false) int? get userId; String get name; String get email; String get phoneNumber; String get address; String get username;@JsonKey(includeFromJson: false, includeToJson: false) String? get password;@JsonKey(includeFromJson: true, includeToJson: true) String? get passwordHash;
 /// Create a copy of UserData
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -29,21 +29,21 @@ $UserDataCopyWith<UserData> get copyWith => _$UserDataCopyWithImpl<UserData>(thi
 void debugFillProperties(DiagnosticPropertiesBuilder properties) {
   properties
     ..add(DiagnosticsProperty('type', 'UserData'))
-    ..add(DiagnosticsProperty('name', name))..add(DiagnosticsProperty('email', email))..add(DiagnosticsProperty('phoneNumber', phoneNumber))..add(DiagnosticsProperty('address', address))..add(DiagnosticsProperty('username', username))..add(DiagnosticsProperty('password', password))..add(DiagnosticsProperty('passwordHash', passwordHash));
+    ..add(DiagnosticsProperty('userId', userId))..add(DiagnosticsProperty('name', name))..add(DiagnosticsProperty('email', email))..add(DiagnosticsProperty('phoneNumber', phoneNumber))..add(DiagnosticsProperty('address', address))..add(DiagnosticsProperty('username', username))..add(DiagnosticsProperty('password', password))..add(DiagnosticsProperty('passwordHash', passwordHash));
 }
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is UserData&&(identical(other.name, name) || other.name == name)&&(identical(other.email, email) || other.email == email)&&(identical(other.phoneNumber, phoneNumber) || other.phoneNumber == phoneNumber)&&(identical(other.address, address) || other.address == address)&&(identical(other.username, username) || other.username == username)&&(identical(other.password, password) || other.password == password)&&(identical(other.passwordHash, passwordHash) || other.passwordHash == passwordHash));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is UserData&&(identical(other.userId, userId) || other.userId == userId)&&(identical(other.name, name) || other.name == name)&&(identical(other.email, email) || other.email == email)&&(identical(other.phoneNumber, phoneNumber) || other.phoneNumber == phoneNumber)&&(identical(other.address, address) || other.address == address)&&(identical(other.username, username) || other.username == username)&&(identical(other.password, password) || other.password == password)&&(identical(other.passwordHash, passwordHash) || other.passwordHash == passwordHash));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,name,email,phoneNumber,address,username,password,passwordHash);
+int get hashCode => Object.hash(runtimeType,userId,name,email,phoneNumber,address,username,password,passwordHash);
 
 @override
 String toString({ DiagnosticLevel minLevel = DiagnosticLevel.info }) {
-  return 'UserData(name: $name, email: $email, phoneNumber: $phoneNumber, address: $address, username: $username, password: $password, passwordHash: $passwordHash)';
+  return 'UserData(userId: $userId, name: $name, email: $email, phoneNumber: $phoneNumber, address: $address, username: $username, password: $password, passwordHash: $passwordHash)';
 }
 
 
@@ -54,7 +54,7 @@ abstract mixin class $UserDataCopyWith<$Res>  {
   factory $UserDataCopyWith(UserData value, $Res Function(UserData) _then) = _$UserDataCopyWithImpl;
 @useResult
 $Res call({
- String name, String email, String phoneNumber, String address, String username,@JsonKey(includeFromJson: false, includeToJson: false) String? password,@JsonKey(includeFromJson: true, includeToJson: true) String? passwordHash
+@JsonKey(includeFromJson: true, includeToJson: false) int? userId, String name, String email, String phoneNumber, String address, String username,@JsonKey(includeFromJson: false, includeToJson: false) String? password,@JsonKey(includeFromJson: true, includeToJson: true) String? passwordHash
 });
 
 
@@ -71,9 +71,10 @@ class _$UserDataCopyWithImpl<$Res>
 
 /// Create a copy of UserData
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? name = null,Object? email = null,Object? phoneNumber = null,Object? address = null,Object? username = null,Object? password = freezed,Object? passwordHash = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? userId = freezed,Object? name = null,Object? email = null,Object? phoneNumber = null,Object? address = null,Object? username = null,Object? password = freezed,Object? passwordHash = freezed,}) {
   return _then(_self.copyWith(
-name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
+userId: freezed == userId ? _self.userId : userId // ignore: cast_nullable_to_non_nullable
+as int?,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as String,email: null == email ? _self.email : email // ignore: cast_nullable_to_non_nullable
 as String,phoneNumber: null == phoneNumber ? _self.phoneNumber : phoneNumber // ignore: cast_nullable_to_non_nullable
 as String,address: null == address ? _self.address : address // ignore: cast_nullable_to_non_nullable
@@ -165,10 +166,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String name,  String email,  String phoneNumber,  String address,  String username, @JsonKey(includeFromJson: false, includeToJson: false)  String? password, @JsonKey(includeFromJson: true, includeToJson: true)  String? passwordHash)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function(@JsonKey(includeFromJson: true, includeToJson: false)  int? userId,  String name,  String email,  String phoneNumber,  String address,  String username, @JsonKey(includeFromJson: false, includeToJson: false)  String? password, @JsonKey(includeFromJson: true, includeToJson: true)  String? passwordHash)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _UserData() when $default != null:
-return $default(_that.name,_that.email,_that.phoneNumber,_that.address,_that.username,_that.password,_that.passwordHash);case _:
+return $default(_that.userId,_that.name,_that.email,_that.phoneNumber,_that.address,_that.username,_that.password,_that.passwordHash);case _:
   return orElse();
 
 }
@@ -186,10 +187,10 @@ return $default(_that.name,_that.email,_that.phoneNumber,_that.address,_that.use
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String name,  String email,  String phoneNumber,  String address,  String username, @JsonKey(includeFromJson: false, includeToJson: false)  String? password, @JsonKey(includeFromJson: true, includeToJson: true)  String? passwordHash)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function(@JsonKey(includeFromJson: true, includeToJson: false)  int? userId,  String name,  String email,  String phoneNumber,  String address,  String username, @JsonKey(includeFromJson: false, includeToJson: false)  String? password, @JsonKey(includeFromJson: true, includeToJson: true)  String? passwordHash)  $default,) {final _that = this;
 switch (_that) {
 case _UserData():
-return $default(_that.name,_that.email,_that.phoneNumber,_that.address,_that.username,_that.password,_that.passwordHash);case _:
+return $default(_that.userId,_that.name,_that.email,_that.phoneNumber,_that.address,_that.username,_that.password,_that.passwordHash);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -206,10 +207,10 @@ return $default(_that.name,_that.email,_that.phoneNumber,_that.address,_that.use
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String name,  String email,  String phoneNumber,  String address,  String username, @JsonKey(includeFromJson: false, includeToJson: false)  String? password, @JsonKey(includeFromJson: true, includeToJson: true)  String? passwordHash)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function(@JsonKey(includeFromJson: true, includeToJson: false)  int? userId,  String name,  String email,  String phoneNumber,  String address,  String username, @JsonKey(includeFromJson: false, includeToJson: false)  String? password, @JsonKey(includeFromJson: true, includeToJson: true)  String? passwordHash)?  $default,) {final _that = this;
 switch (_that) {
 case _UserData() when $default != null:
-return $default(_that.name,_that.email,_that.phoneNumber,_that.address,_that.username,_that.password,_that.passwordHash);case _:
+return $default(_that.userId,_that.name,_that.email,_that.phoneNumber,_that.address,_that.username,_that.password,_that.passwordHash);case _:
   return null;
 
 }
@@ -221,9 +222,10 @@ return $default(_that.name,_that.email,_that.phoneNumber,_that.address,_that.use
 
 @JsonSerializable(fieldRename: FieldRename.snake)
 class _UserData with DiagnosticableTreeMixin implements UserData {
-  const _UserData({required this.name, required this.email, required this.phoneNumber, required this.address, required this.username, @JsonKey(includeFromJson: false, includeToJson: false) this.password, @JsonKey(includeFromJson: true, includeToJson: true) this.passwordHash});
+  const _UserData({@JsonKey(includeFromJson: true, includeToJson: false) this.userId, required this.name, required this.email, required this.phoneNumber, required this.address, required this.username, @JsonKey(includeFromJson: false, includeToJson: false) this.password, @JsonKey(includeFromJson: true, includeToJson: true) this.passwordHash});
   factory _UserData.fromJson(Map<String, dynamic> json) => _$UserDataFromJson(json);
 
+@override@JsonKey(includeFromJson: true, includeToJson: false) final  int? userId;
 @override final  String name;
 @override final  String email;
 @override final  String phoneNumber;
@@ -246,21 +248,21 @@ Map<String, dynamic> toJson() {
 void debugFillProperties(DiagnosticPropertiesBuilder properties) {
   properties
     ..add(DiagnosticsProperty('type', 'UserData'))
-    ..add(DiagnosticsProperty('name', name))..add(DiagnosticsProperty('email', email))..add(DiagnosticsProperty('phoneNumber', phoneNumber))..add(DiagnosticsProperty('address', address))..add(DiagnosticsProperty('username', username))..add(DiagnosticsProperty('password', password))..add(DiagnosticsProperty('passwordHash', passwordHash));
+    ..add(DiagnosticsProperty('userId', userId))..add(DiagnosticsProperty('name', name))..add(DiagnosticsProperty('email', email))..add(DiagnosticsProperty('phoneNumber', phoneNumber))..add(DiagnosticsProperty('address', address))..add(DiagnosticsProperty('username', username))..add(DiagnosticsProperty('password', password))..add(DiagnosticsProperty('passwordHash', passwordHash));
 }
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _UserData&&(identical(other.name, name) || other.name == name)&&(identical(other.email, email) || other.email == email)&&(identical(other.phoneNumber, phoneNumber) || other.phoneNumber == phoneNumber)&&(identical(other.address, address) || other.address == address)&&(identical(other.username, username) || other.username == username)&&(identical(other.password, password) || other.password == password)&&(identical(other.passwordHash, passwordHash) || other.passwordHash == passwordHash));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _UserData&&(identical(other.userId, userId) || other.userId == userId)&&(identical(other.name, name) || other.name == name)&&(identical(other.email, email) || other.email == email)&&(identical(other.phoneNumber, phoneNumber) || other.phoneNumber == phoneNumber)&&(identical(other.address, address) || other.address == address)&&(identical(other.username, username) || other.username == username)&&(identical(other.password, password) || other.password == password)&&(identical(other.passwordHash, passwordHash) || other.passwordHash == passwordHash));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,name,email,phoneNumber,address,username,password,passwordHash);
+int get hashCode => Object.hash(runtimeType,userId,name,email,phoneNumber,address,username,password,passwordHash);
 
 @override
 String toString({ DiagnosticLevel minLevel = DiagnosticLevel.info }) {
-  return 'UserData(name: $name, email: $email, phoneNumber: $phoneNumber, address: $address, username: $username, password: $password, passwordHash: $passwordHash)';
+  return 'UserData(userId: $userId, name: $name, email: $email, phoneNumber: $phoneNumber, address: $address, username: $username, password: $password, passwordHash: $passwordHash)';
 }
 
 
@@ -271,7 +273,7 @@ abstract mixin class _$UserDataCopyWith<$Res> implements $UserDataCopyWith<$Res>
   factory _$UserDataCopyWith(_UserData value, $Res Function(_UserData) _then) = __$UserDataCopyWithImpl;
 @override @useResult
 $Res call({
- String name, String email, String phoneNumber, String address, String username,@JsonKey(includeFromJson: false, includeToJson: false) String? password,@JsonKey(includeFromJson: true, includeToJson: true) String? passwordHash
+@JsonKey(includeFromJson: true, includeToJson: false) int? userId, String name, String email, String phoneNumber, String address, String username,@JsonKey(includeFromJson: false, includeToJson: false) String? password,@JsonKey(includeFromJson: true, includeToJson: true) String? passwordHash
 });
 
 
@@ -288,9 +290,10 @@ class __$UserDataCopyWithImpl<$Res>
 
 /// Create a copy of UserData
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? name = null,Object? email = null,Object? phoneNumber = null,Object? address = null,Object? username = null,Object? password = freezed,Object? passwordHash = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? userId = freezed,Object? name = null,Object? email = null,Object? phoneNumber = null,Object? address = null,Object? username = null,Object? password = freezed,Object? passwordHash = freezed,}) {
   return _then(_UserData(
-name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
+userId: freezed == userId ? _self.userId : userId // ignore: cast_nullable_to_non_nullable
+as int?,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as String,email: null == email ? _self.email : email // ignore: cast_nullable_to_non_nullable
 as String,phoneNumber: null == phoneNumber ? _self.phoneNumber : phoneNumber // ignore: cast_nullable_to_non_nullable
 as String,address: null == address ? _self.address : address // ignore: cast_nullable_to_non_nullable

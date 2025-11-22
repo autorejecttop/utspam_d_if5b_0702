@@ -18,11 +18,31 @@ class BuyMedicineScreen extends StatefulWidget {
 
 class _BuyMedicineScreenState extends State<BuyMedicineScreen> {
   final _formKey = GlobalKey<FormState>();
+  final transactionModel = TransactionModel();
 
   final _quantityController = TextEditingController(text: '0');
   final _noteController = TextEditingController();
   PurchaseMethod? _purchaseMethod;
   final _prescriptionNumberController = TextEditingController();
+
+  Future<void> _buyMedicine() async {
+    if (_formKey.currentState!.validate()) {
+      final transactionData = TransactionData(
+        userId: widget.user.userId!,
+        medicineId: widget.medicineToBuy.medicineId!,
+        quantity: int.parse(_quantityController.text),
+        totalPrice:
+            widget.medicineToBuy.price * int.parse(_quantityController.text),
+        purchaseMethod: _purchaseMethod!,
+        note: _noteController.text,
+        prescriptionNumber: _purchaseMethod == PurchaseMethod.prescription
+            ? _prescriptionNumberController.text
+            : null,
+      );
+
+      await transactionModel.create(transactionData);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -197,13 +217,7 @@ class _BuyMedicineScreenState extends State<BuyMedicineScreen> {
                         context,
                       ).colorScheme.primaryContainer,
                     ),
-                    onPressed: () {
-                      if (_formKey.currentState!.validate()) {
-                        ScaffoldMessenger.of(
-                          context,
-                        ).showSnackBar(SnackBar(content: Text('Success')));
-                      }
-                    },
+                    onPressed: _buyMedicine,
                     child: Text('Beli'),
                   ),
                 ),
