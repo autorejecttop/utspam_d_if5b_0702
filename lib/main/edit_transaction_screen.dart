@@ -226,7 +226,7 @@ class _EditTransactionScreenState extends State<EditTransactionScreen> {
                 SizedBox(height: 16),
 
                 Text(
-                  'Total: ${widget.medicine.price * (int.tryParse(_quantityController.text) ?? 0)}',
+                  'Total: ${NumberFormat.currency(locale: 'id', symbol: 'Rp').format(widget.medicine.price * (int.tryParse(_quantityController.text) ?? 0))}',
                 ),
 
                 SizedBox(height: 16),

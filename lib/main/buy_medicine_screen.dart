@@ -208,7 +208,7 @@ class _BuyMedicineScreenState extends State<BuyMedicineScreen> {
                 SizedBox(height: 16),
 
                 Text(
-                  'Total: ${widget.medicineToBuy.price * (int.tryParse(_quantityController.text) ?? 0)}',
+                  'Total: ${NumberFormat.currency(locale: 'id', symbol: 'Rp').format(widget.medicineToBuy.price * (int.tryParse(_quantityController.text) ?? 0))}',
                 ),
 
                 SizedBox(height: 16),
