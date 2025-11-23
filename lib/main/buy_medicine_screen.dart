@@ -41,6 +41,10 @@ class _BuyMedicineScreenState extends State<BuyMedicineScreen> {
       );
 
       await transactionModel.create(transactionData);
+
+      if (!mounted) return;
+
+      Navigator.pop(context);
     }
   }
 

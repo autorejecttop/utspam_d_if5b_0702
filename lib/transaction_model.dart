@@ -43,4 +43,13 @@ class TransactionModel {
 
     return data;
   }
+
+  Future<int> delete(int id) async {
+    final db = await databaseService.database;
+    return await db.delete(
+      tableName,
+      where: 'transaction_id = ?',
+      whereArgs: [id],
+    );
+  }
 }

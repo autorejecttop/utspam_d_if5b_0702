@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:uts/main/transaction_detail_screen.dart';
 import 'package:uts/medicine_model.dart';
 import 'package:uts/transaction_model.dart';
 import 'package:uts/user_model.dart';
@@ -18,18 +19,20 @@ class _HistoryScreenState extends State<HistoryScreen> {
   final medicineModel = MedicineModel();
   final userModel = UserModel();
   late Future<List<TransactionData>> transactions;
-  late List<MedicineData> medicines;
+  late Future<List<MedicineData>> medicines;
 
   @override
   void initState() {
     super.initState();
     transactions = transactionModel.findAll();
-
-    _load();
+    medicines = medicineModel.findAll();
   }
 
-  Future<void> _load() async {
-    medicines = await medicineModel.findAll();
+  Future<void> handleDeleteTransaction(int transactionId) async {
+    await transactionModel.delete(transactionId);
+    setState(() {
+      transactions = transactionModel.findAll();
+    });
   }
 
   @override
@@ -51,7 +54,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
               SizedBox(height: 24),
 
               FutureBuilder(
-                future: transactions,
+                future: Future.wait([transactions, medicines]),
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
                     return Center(child: CircularProgressIndicator());
@@ -61,7 +64,9 @@ class _HistoryScreenState extends State<HistoryScreen> {
                     return Center(child: Text('Error: ${snapshot.error}'));
                   }
 
-                  final transactions = snapshot.data ?? [];
+                  final transactions =
+                      snapshot.data![0] as List<TransactionData>;
+                  final medicines = snapshot.data![1] as List<MedicineData>;
 
                   return GridView.builder(
                     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
@@ -73,7 +78,24 @@ class _HistoryScreenState extends State<HistoryScreen> {
                     itemCount: transactions.length,
                     itemBuilder: (context, index) => Card(
                       child: InkWell(
-                        onTap: () {},
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => TransactionDetailScreen(
+                                user: widget.user,
+                                medicine: medicines.firstWhere(
+                                  (medicine) =>
+                                      medicine.medicineId ==
+                                      transactions[index].medicineId,
+                                ),
+                                transaction: transactions[index],
+                                handleDeleteTransaction:
+                                    handleDeleteTransaction,
+                              ),
+                            ),
+                          );
+                        },
                         child: Column(
                           children: [
                             ListTile(
