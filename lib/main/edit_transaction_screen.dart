@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:uts/medicine_model.dart';
 import 'package:uts/transaction_model.dart';
 import 'package:uts/user_model.dart';
@@ -86,7 +87,9 @@ class _EditTransactionScreenState extends State<EditTransactionScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text('Nama obat: ${widget.medicine.name}'),
-                Text('Harga obat per unit: ${widget.medicine.price}'),
+                Text(
+                  'Harga obat per unit: ${NumberFormat.currency(locale: 'id', symbol: 'Rp').format(widget.medicine.price)}',
+                ),
 
                 SizedBox(height: 16),
 
@@ -106,7 +109,7 @@ class _EditTransactionScreenState extends State<EditTransactionScreen> {
                         ),
                         validator: (value) {
                           if (value == null || value.isEmpty) {
-                            return 'Nama lengkap tidak boleh kosong!';
+                            return 'Jumlah pembelian tidak boleh kosong!';
                           }
 
                           final unparsedQuantity = int.tryParse(value);

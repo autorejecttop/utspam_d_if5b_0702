@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:uts/medicine_model.dart';
 import 'package:uts/transaction_model.dart';
 import 'package:uts/user_model.dart';
@@ -69,7 +70,9 @@ class _BuyMedicineScreenState extends State<BuyMedicineScreen> {
                 SizedBox(height: 8),
 
                 Text('Nama obat: ${widget.medicineToBuy.name}'),
-                Text('Harga obat per unit: ${widget.medicineToBuy.price}'),
+                Text(
+                  'Harga obat per unit: ${NumberFormat.currency(locale: 'id', symbol: 'Rp').format(widget.medicineToBuy.price)}',
+                ),
 
                 SizedBox(height: 16),
 
@@ -89,7 +92,7 @@ class _BuyMedicineScreenState extends State<BuyMedicineScreen> {
                         ),
                         validator: (value) {
                           if (value == null || value.isEmpty) {
-                            return 'Nama lengkap tidak boleh kosong!';
+                            return 'Jumlah pembelian tidak boleh kosong!';
                           }
 
                           final unparsedQuantity = int.tryParse(value);
