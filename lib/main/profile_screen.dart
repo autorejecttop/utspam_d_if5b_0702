@@ -13,13 +13,34 @@ class _ProfileScreenState extends State<ProfileScreen> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text('Nama: ${widget.user.name}'),
-          Text('Email: ${widget.user.email}'),
-          Text('Nomor Telepon: ${widget.user.phoneNumber}'),
-        ],
+      child: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              'Profil Anda',
+              style: Theme.of(
+                context,
+              ).textTheme.titleLarge!.copyWith(fontWeight: FontWeight.bold),
+            ),
+
+            SizedBox(height: 16),
+
+            Text(
+              'Nama: ${widget.user.name}',
+              style: Theme.of(context).textTheme.titleSmall,
+            ),
+            Text(
+              'Email: ${widget.user.email}',
+              style: Theme.of(context).textTheme.titleSmall,
+            ),
+            Text(
+              'Nomor Telepon: ${widget.user.phoneNumber}',
+              style: Theme.of(context).textTheme.titleSmall,
+            ),
+          ],
+        ),
       ),
     );
   }

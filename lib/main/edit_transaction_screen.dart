@@ -3,36 +3,54 @@ import 'package:uts/medicine_model.dart';
 import 'package:uts/transaction_model.dart';
 import 'package:uts/user_model.dart';
 
-class BuyMedicineScreen extends StatefulWidget {
-  final MedicineData medicineToBuy;
-  final UserData user;
-  const BuyMedicineScreen({
+class EditTransactionScreen extends StatefulWidget {
+  const EditTransactionScreen({
     super.key,
-    required this.medicineToBuy,
     required this.user,
+    required this.medicine,
+    required this.transaction,
+    required this.handleEditTransaction,
   });
 
+  final UserData user;
+  final MedicineData medicine;
+  final TransactionData transaction;
+  final Future<void> Function(int, TransactionData) handleEditTransaction;
+
   @override
-  State<BuyMedicineScreen> createState() => _BuyMedicineScreenState();
+  State<EditTransactionScreen> createState() => _EditTransactionScreenState();
 }
 
-class _BuyMedicineScreenState extends State<BuyMedicineScreen> {
+class _EditTransactionScreenState extends State<EditTransactionScreen> {
   final _formKey = GlobalKey<FormState>();
-  final transactionModel = TransactionModel();
 
-  final _quantityController = TextEditingController(text: '0');
-  final _noteController = TextEditingController();
+  late final TextEditingController _quantityController;
+  late final TextEditingController _noteController;
   PurchaseMethod? _purchaseMethod;
-  final _prescriptionNumberController = TextEditingController();
+  late final TextEditingController _prescriptionNumberController;
 
-  Future<void> _buyMedicine() async {
+  @override
+  initState() {
+    super.initState();
+    _quantityController = TextEditingController(
+      text: widget.transaction.quantity.toString(),
+    );
+    _noteController = TextEditingController(
+      text: widget.transaction.note ?? '',
+    );
+    _purchaseMethod = widget.transaction.purchaseMethod;
+    _prescriptionNumberController = TextEditingController(
+      text: widget.transaction.prescriptionNumber ?? '',
+    );
+  }
+
+  Future<void> _editMedicine() async {
     if (_formKey.currentState!.validate()) {
       final transactionData = TransactionData(
         userId: widget.user.userId!,
-        medicineId: widget.medicineToBuy.medicineId!,
+        medicineId: widget.medicine.medicineId!,
         quantity: int.parse(_quantityController.text),
-        totalPrice:
-            widget.medicineToBuy.price * int.parse(_quantityController.text),
+        totalPrice: widget.medicine.price * int.parse(_quantityController.text),
         purchaseMethod: _purchaseMethod!,
         note: _noteController.text,
         prescriptionNumber: _purchaseMethod == PurchaseMethod.prescription
@@ -40,8 +58,10 @@ class _BuyMedicineScreenState extends State<BuyMedicineScreen> {
             : null,
       );
 
-      await transactionModel.create(transactionData);
-
+      await widget.handleEditTransaction(
+        widget.transaction.transactionId!,
+        transactionData,
+      );
       if (!mounted) return;
 
       Navigator.pop(context);
@@ -53,7 +73,10 @@ class _BuyMedicineScreenState extends State<BuyMedicineScreen> {
     return Scaffold(
       appBar: AppBar(
         titleSpacing: 0,
-        title: Text('Beli obat', style: TextStyle(fontWeight: FontWeight.bold)),
+        title: Text(
+          'Edit transaksi',
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
       ),
       body: SingleChildScrollView(
         child: SafeArea(
@@ -62,14 +85,8 @@ class _BuyMedicineScreenState extends State<BuyMedicineScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                SizedBox(height: 16),
-
-                Text('${widget.user.name} akan membeli:'),
-
-                SizedBox(height: 8),
-
-                Text('Nama obat: ${widget.medicineToBuy.name}'),
-                Text('Harga obat per unit: ${widget.medicineToBuy.price}'),
+                Text('Nama obat: ${widget.medicine.name}'),
+                Text('Harga obat per unit: ${widget.medicine.price}'),
 
                 SizedBox(height: 16),
 
@@ -118,6 +135,7 @@ class _BuyMedicineScreenState extends State<BuyMedicineScreen> {
                       SizedBox(height: 8),
 
                       FormField(
+                        initialValue: _purchaseMethod,
                         autovalidateMode: AutovalidateMode.onUserInteraction,
                         validator: (value) {
                           if (value == null) {
@@ -205,7 +223,7 @@ class _BuyMedicineScreenState extends State<BuyMedicineScreen> {
                 SizedBox(height: 16),
 
                 Text(
-                  'Total: ${widget.medicineToBuy.price * (int.tryParse(_quantityController.text) ?? 0)}',
+                  'Total: ${widget.medicine.price * (int.tryParse(_quantityController.text) ?? 0)}',
                 ),
 
                 SizedBox(height: 16),
@@ -218,8 +236,8 @@ class _BuyMedicineScreenState extends State<BuyMedicineScreen> {
                         context,
                       ).colorScheme.primaryContainer,
                     ),
-                    onPressed: _buyMedicine,
-                    child: Text('Beli'),
+                    onPressed: _editMedicine,
+                    child: Text('Edit'),
                   ),
                 ),
               ],

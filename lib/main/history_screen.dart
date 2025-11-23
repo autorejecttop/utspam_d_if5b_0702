@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:uts/main/transaction_detail_screen.dart';
@@ -28,8 +30,8 @@ class _HistoryScreenState extends State<HistoryScreen> {
     medicines = medicineModel.findAll();
   }
 
-  Future<void> handleDeleteTransaction(int transactionId) async {
-    await transactionModel.delete(transactionId);
+  Future<void> handleRemoveTransaction(int transactionId) async {
+    await transactionModel.remove(transactionId);
     setState(() {
       transactions = transactionModel.findAll();
     });
@@ -65,7 +67,13 @@ class _HistoryScreenState extends State<HistoryScreen> {
                   }
 
                   final transactions =
-                      snapshot.data![0] as List<TransactionData>;
+                      (snapshot.data![0] as List<TransactionData>)
+                          .where(
+                            (transaction) =>
+                                transaction.userId == widget.user.userId,
+                          )
+                          .toList();
+
                   final medicines = snapshot.data![1] as List<MedicineData>;
 
                   return GridView.builder(
@@ -90,13 +98,14 @@ class _HistoryScreenState extends State<HistoryScreen> {
                                       transactions[index].medicineId,
                                 ),
                                 transaction: transactions[index],
-                                handleDeleteTransaction:
-                                    handleDeleteTransaction,
+                                handleRemoveTransaction:
+                                    handleRemoveTransaction,
                               ),
                             ),
                           );
                         },
                         child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             ListTile(
                               title: Text(

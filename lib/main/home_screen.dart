@@ -31,13 +31,13 @@ class _HomeScreenState extends State<HomeScreen> {
     return SingleChildScrollView(
       child: SafeArea(
         child: Padding(
-          padding: EdgeInsets.all(8.0),
+          padding: EdgeInsets.all(16.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
                 'Selamat datang, ${widget.user.name}',
-                style: Theme.of(context).textTheme.headlineMedium!.copyWith(
+                style: Theme.of(context).textTheme.headlineSmall!.copyWith(
                   color: Theme.of(context).colorScheme.primary,
                   fontWeight: FontWeight.bold,
                 ),
@@ -51,9 +51,9 @@ class _HomeScreenState extends State<HomeScreen> {
 
               Text(
                 'Pilihan obat untuk Anda',
-                style: Theme.of(context).textTheme.headlineSmall!.copyWith(
-                  fontWeight: FontWeight.bold,
-                ),
+                style: Theme.of(
+                  context,
+                ).textTheme.titleLarge!.copyWith(fontWeight: FontWeight.bold),
               ),
 
               SizedBox(height: 16),
@@ -103,13 +103,16 @@ class _HomeScreenState extends State<HomeScreen> {
                                       medicines[index].name,
                                       style: Theme.of(
                                         context,
-                                      ).textTheme.titleMedium,
+                                      ).textTheme.titleSmall,
                                     ),
                                     Text(
                                       NumberFormat.currency(
                                         locale: 'id',
                                         symbol: 'Rp',
                                       ).format(medicines[index].price),
+                                      style: Theme.of(
+                                        context,
+                                      ).textTheme.labelSmall,
                                     ),
                                     Align(
                                       alignment: Alignment.centerRight,

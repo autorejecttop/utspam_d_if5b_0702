@@ -28,15 +28,15 @@ class _ShopScreenState extends State<ShopScreen> {
     return SingleChildScrollView(
       child: SafeArea(
         child: Padding(
-          padding: EdgeInsetsGeometry.all(8),
+          padding: EdgeInsetsGeometry.all(16),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
                 'Obat terbaru kami',
-                style: Theme.of(context).textTheme.headlineMedium!.copyWith(
-                  fontWeight: FontWeight.bold,
-                ),
+                style: Theme.of(
+                  context,
+                ).textTheme.titleLarge!.copyWith(fontWeight: FontWeight.bold),
               ),
 
               SizedBox(height: 12),
@@ -85,16 +85,19 @@ class _ShopScreenState extends State<ShopScreen> {
                                     medicines[index].name,
                                     style: Theme.of(
                                       context,
-                                    ).textTheme.titleMedium,
+                                    ).textTheme.titleSmall,
                                   ),
                                   Text(
                                     NumberFormat.currency(
                                       locale: 'id',
                                       symbol: 'Rp',
                                     ).format(medicines[index].price),
+                                    style: Theme.of(
+                                      context,
+                                    ).textTheme.labelSmall,
                                   ),
                                   Align(
-                                    alignment: Alignment.centerRight,
+                                    alignment: AlignmentGeometry.bottomRight,
                                     child: ElevatedButton(
                                       onPressed: () {
                                         Navigator.push(

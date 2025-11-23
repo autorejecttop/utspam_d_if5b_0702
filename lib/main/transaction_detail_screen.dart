@@ -1,22 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:uts/main/edit_transaction_screen.dart';
 import 'package:uts/medicine_model.dart';
 import 'package:uts/transaction_model.dart';
 import 'package:uts/user_model.dart';
 
 class TransactionDetailScreen extends StatefulWidget {
-  const TransactionDetailScreen({
+  TransactionDetailScreen({
     super.key,
     required this.user,
     required this.medicine,
     required this.transaction,
-    required this.handleDeleteTransaction,
+    required this.handleRemoveTransaction,
   });
 
   final UserData user;
   final MedicineData medicine;
-  final TransactionData transaction;
-  final Future<void> Function(int) handleDeleteTransaction;
+  TransactionData transaction;
+  final Future<void> Function(int) handleRemoveTransaction;
 
   @override
   State<TransactionDetailScreen> createState() =>
@@ -26,10 +27,26 @@ class TransactionDetailScreen extends StatefulWidget {
 class _TransactionDetailScreenState extends State<TransactionDetailScreen> {
   final transactionModel = TransactionModel();
 
+  Future<void> _handleEditTransaction(
+    int transactionId,
+    TransactionData transaction,
+  ) async {
+    await transactionModel.update(transactionId, transaction);
+    widget.transaction = await transactionModel.findOne(transactionId);
+
+    setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Detail Transaksi'), titleSpacing: 0),
+      appBar: AppBar(
+        title: Text(
+          'Detail Transaksi',
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
+        titleSpacing: 0,
+      ),
       body: SingleChildScrollView(
         child: Padding(
           padding: EdgeInsetsGeometry.all(16),
@@ -72,7 +89,7 @@ class _TransactionDetailScreenState extends State<TransactionDetailScreen> {
                   Expanded(
                     child: ElevatedButton(
                       onPressed: () async {
-                        await widget.handleDeleteTransaction(
+                        await widget.handleRemoveTransaction(
                           widget.transaction.transactionId!,
                         );
 
@@ -93,7 +110,19 @@ class _TransactionDetailScreenState extends State<TransactionDetailScreen> {
                   ),
                   Expanded(
                     child: ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => EditTransactionScreen(
+                              user: widget.user,
+                              medicine: widget.medicine,
+                              transaction: widget.transaction,
+                              handleEditTransaction: _handleEditTransaction,
+                            ),
+                          ),
+                        );
+                      },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Theme.of(
                           context,
